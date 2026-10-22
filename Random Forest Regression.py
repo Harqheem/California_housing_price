@@ -11,7 +11,7 @@ import time
 df = pd.read_csv('housing_cleaned.csv')
 
 # Extract Features and Targets
-X = df.drop(columns=["longitude", "latitude", "median_house_value"])
+X = df.drop(columns=["median_house_value"])
 y = df['median_house_value']
 
 # One hot encode values of ocean proximity
@@ -46,5 +46,6 @@ best_model.fit(X_train, y_train)
 
 # Check for accuracy
 y_predict = best_model.predict(X_test)
+
 model_accuracy = r2_score(y_test, y_predict)
 print(f"The model accuracy is {model_accuracy:.2%}")
