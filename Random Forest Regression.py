@@ -21,23 +21,28 @@ X = pd.get_dummies(X, columns=['ocean_proximity'], dtype=int)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Find the best hyperparameters that could be used
-params = {'min_samples_split' : [2,10, 30, 50, 100, 200, 300, 700] ,
-          'max_depth': [2, 4, 8, 16, 32, 64, None],
-          'n_estimators': [10, 50, 100, 500]}
-random_search = RandomizedSearchCV(
-                estimator=RandomForestRegressor(random_state=42),
-                param_distributions=params,
-                n_iter=20,
-                cv=5,
-                scoring="r2",
-                n_jobs=-1,
-                random_state=42)
 
-random_search.fit(X_train, y_train)
+# params = {'min_samples_split' : [2,10, 30, 50, 100, 200, 300, 700] ,
+#           'max_depth': [2, 4, 8, 16, 32, 64, None],
+#           'n_estimators': [10, 50, 100, 500]}
+# random_search = RandomizedSearchCV(
+#                 estimator=RandomForestRegressor(random_state=42),
+#                 param_distributions=params,
+#                 n_iter=20,
+#                 cv=5,
+#                 scoring="r2",
+#                 n_jobs=-1,
+#                 random_state=42)
+
+# random_search.fit(X_train, y_train)
 
 # Model Training
-print(f"Best Hyperparameters: {random_search.best_params_}") 
-best_model = random_search.best_estimator_
+
+# print(f"Best Hyperparameters: {random_search.best_params_}") 
+#Best Hyperparameters found: {'n_estimators': 500, 'min_samples_split': 10, 'max_depth': None}
+
+best_model = RandomForestRegressor(random_state=42, n_estimators=500, min_samples_split=10, max_depth=None)
+best_model.fit(X_train, y_train)
 
 # Check for accuracy
 y_predict = best_model.predict(X_test)
