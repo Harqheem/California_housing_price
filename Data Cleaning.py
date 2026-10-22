@@ -51,4 +51,4 @@ if __name__ == '__main__':
     lines()
 
     # Export dataset for model training
-    df.to_csv('housing_cleaned.csv')
+    df.to_csv('housing_cleaned.csv', index=False)
